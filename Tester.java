@@ -14,19 +14,33 @@ public class Tester {
 			choice=sc.nextInt();
 			switch (choice) {
 			
-			case 1 : //plan.Week[0]
+			case 1 : DisplayOp();
+					//plan.Week[0]
 					break;
-			case 2 ://plan.Week[1]
+					 
+			case 2 :
+				 DisplayOp();
+					//plan.Week[1]
 					break ;
-			case 3 :// plan.Week[2]
+			case 3 :
+				 DisplayOp();
+				// plan.Week[2]
 					break;
-			case 4 : //plan.Week[3]
+			case 4 : 
+				 DisplayOp();
+				//plan.Week[3]
 				break;
-			case 5 ://plan.Week[4]
+			case 5 :
+				 DisplayOp();
+				//plan.Week[4]
 				break ;
-			case 6 :// plan.Week[5]
+			case 6 :
+				 DisplayOp();
+				// plan.Week[5]
 				break;
-			case 7 :// plan.Week[6]
+			case 7 :
+				 DisplayOp();
+				// plan.Week[6]
 					break;
 			case 8: //plan.display
 					break;
@@ -39,8 +53,11 @@ public class Tester {
 			
 			}
 			
-			
-			
+	}
+	public static void DisplayOp() {
+		System.out.print("What would you like to do\n1) add\n2) delete\n3)display ");
+		System.out.print("\n4) Reschedule");
 		
 	}
 }
+
