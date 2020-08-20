@@ -59,6 +59,8 @@ public class scheduleWindow extends JFrame{
                     new_frame.setVisible(true);
                     new_frame.pack();
                     new_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
                 }
             });
             Dimension buttonSize = dayButton[current_index].getPreferredSize();
