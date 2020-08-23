@@ -5,11 +5,17 @@ import javax.swing.*;
 
 public class schedule extends JFrame{
     JTable scheduleTable;
+    String columns[] = {"Time", "Event"};
+    Object[][] data = new Object[24][2];
 
     public schedule() {
-        String columns[] = {"Time", "Event"};
-        //For the time being I just started off filling the table schedule up with some values.
-        Object[][] data = {{"1:00", "Stuff"}, {"2:00", "Stuff2"}};
+
+        int currentHour = 24;
+
+        for(int i = 23; i >= 0; i--){
+            data[i][0] = currentHour;
+            currentHour -= 1;
+        }
 
         scheduleTable = new JTable(data, columns);
         scheduleTable.setPreferredScrollableViewportSize(new Dimension(50, 50));
@@ -18,10 +24,25 @@ public class schedule extends JFrame{
         add(scrollPane);
     }
 
+    void addEvent(int row, int column, String event){
+        boolean isValid = false;
+        while(!isValid){
+            if(column > 2 || column <= 0 || row > 24 || row <= 0){
+                System.out.println("Invalid operation, please enter something valid!");
+            }
+            else{
+                isValid = true;
+                data[row][column] = event;
+            }
+        }
+    }
+
+    /*
     public static void main(String[] args){
         schedule gui = new schedule();
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setSize(600, 600);
+        gui.setSize(1000, 1000);
         gui.setVisible(true);
-    }
+
+    }*/
 }

@@ -7,24 +7,22 @@ import javax.swing.JLabel;
 import java.lang.*;
 
 public class scheduleWindow extends JFrame{
+    static int width = 0, height = 0;
+    static schedule gui;
+    static JPanel panel = new JPanel(new GridBagLayout());
+    static JFrame defaultFrame;
+    static GridBagConstraints constraints = new GridBagConstraints();
 
-    private String windowName;
-    private int xValue, yValue, width = 0, height = 0;
-    private double totalSum;
-    JPanel panel = new JPanel(new GridBagLayout());
-    JFrame defaultFrame;
-    GridBagConstraints constraints = new GridBagConstraints();
-
-    void addWindow(int widthOfTemplate, int heightOfTemplate){
-        this.width = widthOfTemplate;
-        this.height = heightOfTemplate;
+    static void addWindow(int widthOfTemplate, int heightOfTemplate){
+        width = widthOfTemplate;
+        height = heightOfTemplate;
 
         JFrame  frame = new JFrame("Invoice System");
         frame.getContentPane();
 
         JLabel title = new JLabel("Click on one of the buttons to view your schedule: ");
         Dimension size = title.getPreferredSize();
-        title.setBounds(this.width / 3, 100, size.width, size.height);
+        title.setBounds(width / 3, 100, size.width, size.height);
         panel.setLayout(null);
         panel.add(title);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -34,17 +32,16 @@ public class scheduleWindow extends JFrame{
         defaultFrame = frame;
     }
 
-    void setWindowName(String windowName){
-        this.windowName = windowName;
-        JLabel windowNameLabel = new JLabel(this.windowName);
+    static void setWindowName(String windowName){
+        JLabel windowNameLabel = new JLabel(windowName);
         windowNameLabel.setHorizontalAlignment(JLabel.CENTER);
         windowNameLabel.setVerticalAlignment(JLabel.TOP);
         windowNameLabel.setSize(250, 250);
         windowNameLabel.setVisible(true);
         defaultFrame.add(windowNameLabel);
     }
-    final String []days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-    void addDay(){
+    final static String []days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    static void addDay(){
         JButton dayButton[] = new JButton[7];
         int current_x_position = 0;
         final int current_y_position = 350;
@@ -53,15 +50,12 @@ public class scheduleWindow extends JFrame{
             dayButton[current_index] = new JButton(days[current_index]);
             dayButton[current_index].addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e){
-                    JFrame  new_frame = new JFrame("Schedule");
-                    new_frame.setPreferredSize(new Dimension(width, height));
-                    new_frame.setResizable(false);
-                    new_frame.setVisible(true);
-                    new_frame.pack();
-                    new_frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    gui = new schedule();
+                    gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    gui.setSize(1000, 1000);
+                    gui.setVisible(true);
 
-
-                }
+                } 
             });
             Dimension buttonSize = dayButton[current_index].getPreferredSize();
             dayButton[current_index].setBounds(current_x_position, current_y_position, 120, buttonSize.height);
@@ -71,7 +65,4 @@ public class scheduleWindow extends JFrame{
 
 
     }
-
-    void setTotalSum(double price){ this.totalSum += price; }
-    double getTotalSum(){ return(this.totalSum);}
 }

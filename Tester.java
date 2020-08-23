@@ -2,8 +2,8 @@ import java.util.*;
 
 
 public class Tester {
-
 	public static void main(String[] args) {
+		scheduleWindow baseWindow;
 		Week w= new Week();
 		int choice;
 		Scanner sc= new Scanner(System.in);
@@ -11,11 +11,15 @@ public class Tester {
 	
 				System.out.print("Enter the day you wish to edit\n1) Sunday\n2) Monday\n3) Tuesday");
 				System.out.print("\n4) Wednesday\n 5)Thursday\n6) Friday\n 7) Saturday \n8)Display Entire week\n)exit");
-			choice=onlyGetGoodInput();
+				choice=onlyGetGoodInput();
 				if (choice>=1&&choice <=7) {
 					runOp(w.Week[choice+1]);
 				}else if (choice ==8) {
 					//display week
+					baseWindow = new scheduleWindow();
+					baseWindow.addWindow(900, 900);
+					baseWindow.setWindowName("Weekly Schedule");
+					baseWindow.addDay();
 				}else if (choice ==9) {
 					return;
 				}else {
@@ -91,10 +95,9 @@ public class Tester {
 				day.delete(name);
 				break;
 			case 3://Display an element- GUI should cover this
-				scheduleWindow baseWindow = new scheduleWindow();
-				baseWindow.addWindow(900, 900);
-				baseWindow.setWindowName("Weekly Schedule");
-				baseWindow.addDay();
+				scheduleWindow.addWindow(900, 900);
+				scheduleWindow.setWindowName("Weekly Schedule");
+				scheduleWindow.addDay();
 				break;
 			case 4://Reschedule an event
 				System.out.println("Enter name of event you want to reschedule\n");

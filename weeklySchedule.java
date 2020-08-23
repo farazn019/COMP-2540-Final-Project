@@ -1,5 +1,6 @@
 
 
+//This might not be needed, if tester.java works fine!
 class weeklySchedule{
 
     public static void main(String[] args){
