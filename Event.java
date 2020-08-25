@@ -1,14 +1,9 @@
 import java.util.Scanner;
 
-
-
-
 public class Event {
 	String header;
-	//String details;
-
 	Timeframe time;
-	//Event previous;
+
 	Event next;
 	Event previous;
 	int priority;
@@ -24,7 +19,7 @@ public class Event {
 		System.out.println("\n Enter Event name");
 		this.header = sc.nextLine();
 		
-		//this.details = details;
+	
 		System.out.println("\n Enter Event start hour");
 		x=sc.nextInt();
 		this.startingHour = x;
@@ -43,18 +38,18 @@ public class Event {
 		
 		
 	}
-	public Event(String header, String details, Timeframe time, Event next, int priority) {
+	public Event(String header, Timeframe time, Event next, int priority) {
 		this.header = header;
-	//	this.details = details;
+
 		this.time = time;
-		//this.previous = previous;
+
 		this.next = next;
 		this.priority = priority;
 	}
 	
-	public Event(String header, String details, Timeframe time, int priority) {
+	public Event(String header,  Timeframe time, int priority) {
 		this.header = header;
-	//	this.details = details;
+
 		this.time = time;
 		this.priority = priority;
 	}
