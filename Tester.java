@@ -15,7 +15,7 @@ public class Tester{
 		w= new Week();
 		Scanner sc= new Scanner(System.in);
 		gui.closeOnExit();
-    	gui.setSize(1000, 1000);
+    	gui.setSize(1000, 1000); //sets the size of the gui to 1000 by 1000 pixels.
 
 		weeklyScheduleArray = new String[25][7];
 		days = new String[7];
@@ -106,6 +106,7 @@ public class Tester{
 
 
 	public static void runOp(Day day) {
+		//Prompts the user to choose between: adding an event, deleting an event, displaying the table, and rescheduling events.
 		System.out.println("What would you like to do\n1) add\n2) delete\n3)display\n4) Reschedule\n");
 		Scanner sc = new Scanner(System.in);
 		int chosenOption;
@@ -113,11 +114,9 @@ public class Tester{
 			System.out.println("Choose a number between 1-4");
 		}
 
-		String dayToRemove = "";
-
 		switch (chosenOption){
+			//The first case adds an event to a specific day of the week.
 			case 1://Add an event
-				System.out.println("Please enter the day that you would ");
 
 				Event e= addEvent();
 				day.addAt(e, day.inSort(e));
@@ -132,33 +131,48 @@ public class Tester{
 					}
 				}
 
-
+				//breaks from the switch statement.
 				break;
 
-			case 2://Delete an event
+			case 2:
+				//The second case will delete an event from the linked list of Days, and thus from the GUI.
+
+				//The user is prompted to enter the name of the event that they want to delete.
 				System.out.println("\nEnter name of event you want to delete");
 				String name=sc.nextLine();
 
-				
+				//The column of the specific day is traversed to search for a name string, and removes it.
 				for(int j = 0; j < 24; j++){
+					//If the gui at the specified value isn't null and the gui at the schedule table is equivalent to the name string, then it is removed.
 					if((gui.scheduleTable.getValueAt(j, choice) != null) && (gui.scheduleTable.getValueAt(j, choice).equals(name))){
 						gui.scheduleTable.setValueAt("", j, choice);
 					}
 				}
 				
+				//Deletes the day from the Day linked list.
 				day.delete(name);
+				//breaks from the swirch statement.
 				break;
+			
 
-			case 3://Display an element- GUI should cover this
+			case 3:
+				//Displays the GUI to the user, which will allow them to see all the events for the day.
 				gui.setVisible(true);
+				//breaks from the while loop.
 				break;
-			case 4://Reschedule an event
-
+			case 4:
+				//The fourth case will reschedule an event.
 				String originalEvent = "";
 
 
 				System.out.println("Enter name of event you want to reschedule\n");
 				originalEvent = sc.nextLine();
+
+				for(int i = 0; i < 24; i++){
+					if((gui.scheduleTable.getValueAt(i, choice) != null) && (gui.scheduleTable.getValueAt(i, choice).equals(originalEvent))){
+						gui.scheduleTable.setValueAt("", i, choice);
+					}
+				}
 
 
 				Event New=day.Search(originalEvent);
@@ -168,6 +182,7 @@ public class Tester{
 					return;
 				}
 
+				//Prompts the user for important information.
 				System.out.println("\n Enter new Event start hour");
 				int x=onlyGetGoodInput();
 				System.out.println("\n Enter new Event start minute");
@@ -178,26 +193,31 @@ public class Tester{
 				int z=onlyGetGoodInput();
 				day.reschedule(New, x, y, w, z);
 
+
 				System.out.println("Please enter the information for the new event: ");
 
+				//The newDay variable will store the new day of the week.
 				String newDay = "";
+				//The newIntDat will convert the day format to the integer array format.
 				int newIntDay = 1;
-				Event newEvent = addEvent();
 
+				//Prompts the user to enter the new day.
 				System.out.println("Now, please enter the day that you would like to reschedule this event (make the first letter an uppercase): ");
 				newDay = sc.nextLine();
 
+				//This will search for the specific date in the columns of the schedule table.
 				for(int i = 1; i  <= 7; i++){
 					if(gui.columns[i].equals(newDay)){
 						newIntDay = i;
 					}
 				}
 
+				//This will copy all the previous events to the new event date and corresponding hour span.
 				for(int i = x; i < w; i++){
-					gui.scheduleTable.setValueAt(newEvent.header, i, newIntDay);
+					gui.scheduleTable.setValueAt(originalEvent, i, newIntDay);
 				}
 				
-			
+				//breaks from the switch statement.
 				break;
 		}
 
