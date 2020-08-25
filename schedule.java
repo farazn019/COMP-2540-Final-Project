@@ -7,14 +7,14 @@ public class schedule extends JFrame{
     JTable scheduleTable;
     String columns[] = {"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
-    Object[][] data = new Object[25][8];
+    Object[][] data = new Object[24][8];
 
     public schedule() {
 
         int currentHour = 24;
 
-        for(int i = 24; i >= 0; i--){
-            data[i][0] = currentHour;
+        for(int i = 23; i >= 0; i--){
+            data[i][0] = currentHour + ": 00";
             currentHour -= 1;
         }
 

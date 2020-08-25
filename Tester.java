@@ -98,7 +98,7 @@ public class Tester{
 		return new Event(header,details,timeblock,priority);
 
 
-		
+
 
 
 	}
@@ -112,17 +112,38 @@ public class Tester{
 		while((chosenOption = onlyGetGoodInput())<1||chosenOption>4){
 			System.out.println("Choose a number between 1-4");
 		}
+
+		int intDay = 1;
+		String dayToRemove = "";
+		boolean foundEvent = false;
 		switch (chosenOption){
 			case 1://Add an event
 				Event e= addEvent();
 				day.addAt(e, day.inSort(e));
 				weeklyScheduleArray[e.startingHour][choice - 1] = e.header;
 				gui.addEvent(startingHour, choice, e.header);
-				//gui.setVisible(true);
 				break;
+
 			case 2://Delete an event
 				System.out.println("\nEnter name of event you want to delete");
 				String name=sc.nextLine();
+				System.out.println("On what day do you want to delete this event (please make the first letter of the day an uppercase) : ");
+				dayToRemove = sc.nextLine();
+
+				for(int i = 1; i <= 7; i++){
+					if(gui.columns[i].equals(dayToRemove)){
+						intDay = i;
+						System.out.println(intDay);
+					}
+				}
+				
+				for(int j = 0; j < 24; j++){
+					
+					if((gui.scheduleTable.getValueAt(j, intDay) != null) && (gui.scheduleTable.getValueAt(j, intDay).equals(name))){
+						gui.scheduleTable.setValueAt("", j, intDay);
+					}
+				}
+				
 				day.delete(name);
 				break;
 
