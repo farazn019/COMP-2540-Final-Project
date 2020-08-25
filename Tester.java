@@ -1,3 +1,4 @@
+
 import java.util.*;
 
 
@@ -11,7 +12,7 @@ public class Tester{
 
 
 	public static void main(String[] args) {
-		//scheduleWindow baseWindow;
+	
 		w= new Week();
 		Scanner sc= new Scanner(System.in);
 		gui.closeOnExit();
@@ -35,7 +36,8 @@ public class Tester{
 			while (true) {
 	
 				System.out.print("Enter the day you wish to edit\n1) Sunday\n2) Monday\n3) Tuesday");
-				System.out.print("\n4) Wednesday\n 5)Thursday\n6) Friday\n 7) Saturday \n8)Display Entire week\n)exit");
+				System.out.print("\n4) Wednesday\n 5)Thursday\n6) Friday\n 7) Saturday \n"
+						+ "8)Display Entire week\n9)exit\n");
 				choice=onlyGetGoodInput();
 				if (choice>=1&&choice <=7) {
 					runOp(w.Week[choice-1]);
@@ -76,30 +78,25 @@ public class Tester{
 
 	public static Event addEvent(){
 		String header;
-		String details;
+	
 		Timeframe timeblock =null;
 		int priority;
 		Scanner in = new Scanner(System.in);
-		System.out.print("Give header >> ");
-		header = in.next();
-		System.out.print("\nGive details >> ");
-		details = in.next();
-		System.out.print("\nGive prio >> ");
+		System.out.print("Give Event name >> ");
+		header = in.nextLine();
+		
+		System.out.print("\nGive priority >> ");
 		priority = onlyGetGoodInput();
 
 		while(timeblock==null){
-			System.out.print("Give starting point in hour minute format >> ");
+			System.out.print("Give time in 24 hour format start hour \nstart minute\nend hour\nend minute format >> ");
 			int[] startingTime = onlyGetGoodInputs(2);
 			startingHour = startingTime[0];
 			int[] endingTime = onlyGetGoodInputs(2);
 			endingHour = endingTime[0];
 			timeblock = new Timeframe(new Timeframe.Time(startingTime),new Timeframe.Time(endingTime));
 		}
-		return new Event(header,details,timeblock,priority);
-
-
-
-
+		return new Event(header,timeblock,priority);
 
 	}
 
@@ -119,7 +116,10 @@ public class Tester{
 			case 1://Add an event
 
 				Event e= addEvent();
+			
+				
 				day.addAt(e, day.inSort(e));
+				
 				weeklyScheduleArray[e.startingHour][choice - 1] = e.header;
 
 				if(gui.scheduleTable.getValueAt(startingHour, choice) == null){
@@ -202,7 +202,8 @@ public class Tester{
 				int newIntDay = 1;
 
 				//Prompts the user to enter the new day.
-				System.out.println("Now, please enter the day that you would like to reschedule this event (make the first letter an uppercase): ");
+				System.out.println("Now, please enter the day that you would like to reschedule "
+						+ "\nthis event (make the first letter an uppercase): ");
 				newDay = sc.nextLine();
 
 				//This will search for the specific date in the columns of the schedule table.
