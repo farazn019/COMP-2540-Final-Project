@@ -89,7 +89,8 @@ public class Tester{
 		priority = onlyGetGoodInput();
 
 		while(timeblock==null){
-			System.out.print("Give time in 24 hour format start hour \nstart minute\nend hour\nend minute format >> ");
+		System.out.print("Give time in 24 hour form by entering "
+					+ "each value separately \nstart hour \nstart minute\nend hour\nend minute \n");
 			int[] startingTime = onlyGetGoodInputs(2);
 			startingHour = startingTime[0];
 			int[] endingTime = onlyGetGoodInputs(2);
