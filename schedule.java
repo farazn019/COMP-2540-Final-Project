@@ -2,6 +2,7 @@
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.Color;
 
 public class schedule extends JFrame{
     JTable scheduleTable;
@@ -12,7 +13,6 @@ public class schedule extends JFrame{
     public schedule() {
 
         int currentHour = 24;
-
         for(int i = 23; i >= 0; i--){
             data[i][0] = currentHour + ": 00";
             currentHour -= 1;
@@ -20,6 +20,8 @@ public class schedule extends JFrame{
 
 
         scheduleTable = new JTable(data, columns);
+        scheduleTable.setSelectionBackground(new java.awt.Color(0, 255, 0));
+        scheduleTable.setGridColor(new java.awt.Color(255, 0, 0));
         scheduleTable.setPreferredScrollableViewportSize(new Dimension(50, 50));
         scheduleTable.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(scheduleTable);
@@ -34,7 +36,7 @@ public class schedule extends JFrame{
             }
             else{
                 isValid = true;
-                data[row][column] = event;
+                data[row - 1][column] = event;
             }
         }
     }
@@ -42,12 +44,4 @@ public class schedule extends JFrame{
     void closeOnExit(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
-    /*
-    public static void main(String[] args){
-        schedule gui = new schedule();
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setSize(1000, 1000);
-        gui.setVisible(true);
-    }*/
 }

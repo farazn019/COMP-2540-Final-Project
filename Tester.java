@@ -92,7 +92,7 @@ public class Tester{
 			int[] startingTime = onlyGetGoodInputs(2);
 			startingHour = startingTime[0];
 			int[] endingTime = onlyGetGoodInputs(2);
-			endingHour = endingTime[1];
+			endingHour = endingTime[0];
 			timeblock = new Timeframe(new Timeframe.Time(startingTime),new Timeframe.Time(endingTime));
 		}
 		return new Event(header,details,timeblock,priority);
@@ -113,34 +113,36 @@ public class Tester{
 			System.out.println("Choose a number between 1-4");
 		}
 
-		int intDay = 1;
 		String dayToRemove = "";
-		boolean foundEvent = false;
+
 		switch (chosenOption){
 			case 1://Add an event
+				System.out.println("Please enter the day that you would ");
+
 				Event e= addEvent();
 				day.addAt(e, day.inSort(e));
 				weeklyScheduleArray[e.startingHour][choice - 1] = e.header;
-				gui.addEvent(startingHour, choice, e.header);
+
+				if(gui.scheduleTable.getValueAt(startingHour, choice) == null){
+					System.out.println("Starting hour: " + startingHour);
+					System.out.println("Ending Hour: " + endingHour);
+					for(int i = startingHour; i < endingHour; i++){
+						//gui.scheduleTable.setValueAt(e.header, i, choice);		
+						gui.addEvent(i, choice, e.header);			
+					}
+				}
+
+
 				break;
 
 			case 2://Delete an event
 				System.out.println("\nEnter name of event you want to delete");
 				String name=sc.nextLine();
-				System.out.println("On what day do you want to delete this event (please make the first letter of the day an uppercase) : ");
-				dayToRemove = sc.nextLine();
 
-				for(int i = 1; i <= 7; i++){
-					if(gui.columns[i].equals(dayToRemove)){
-						intDay = i;
-						System.out.println(intDay);
-					}
-				}
 				
 				for(int j = 0; j < 24; j++){
-					
-					if((gui.scheduleTable.getValueAt(j, intDay) != null) && (gui.scheduleTable.getValueAt(j, intDay).equals(name))){
-						gui.scheduleTable.setValueAt("", j, intDay);
+					if((gui.scheduleTable.getValueAt(j, choice) != null) && (gui.scheduleTable.getValueAt(j, choice).equals(name))){
+						gui.scheduleTable.setValueAt("", j, choice);
 					}
 				}
 				
@@ -151,12 +153,21 @@ public class Tester{
 				gui.setVisible(true);
 				break;
 			case 4://Reschedule an event
+
+				String originalEvent = "";
+
+
 				System.out.println("Enter name of event you want to reschedule\n");
-				Event New=day.Search(sc.nextLine());
+				originalEvent = sc.nextLine();
+
+
+				Event New=day.Search(originalEvent);
+
 				if(New==null) {
 					System.out.println("You cant reschedule an event that DNE!\n");
 					return;
 				}
+
 				System.out.println("\n Enter new Event start hour");
 				int x=onlyGetGoodInput();
 				System.out.println("\n Enter new Event start minute");
@@ -166,6 +177,27 @@ public class Tester{
 				System.out.println("\n Enter new Event end minute");
 				int z=onlyGetGoodInput();
 				day.reschedule(New, x, y, w, z);
+
+				System.out.println("Please enter the information for the new event: ");
+
+				String newDay = "";
+				int newIntDay = 1;
+				Event newEvent = addEvent();
+
+				System.out.println("Now, please enter the day that you would like to reschedule this event (make the first letter an uppercase): ");
+				newDay = sc.nextLine();
+
+				for(int i = 1; i  <= 7; i++){
+					if(gui.columns[i].equals(newDay)){
+						newIntDay = i;
+					}
+				}
+
+				for(int i = x; i < w; i++){
+					gui.scheduleTable.setValueAt(newEvent.header, i, newIntDay);
+				}
+				
+			
 				break;
 		}
 
