@@ -68,6 +68,8 @@ public void reschedule(Event e, int starth,int startm,int endh, int endm) {
 	e.time =  new Timeframe(new Timeframe.Time(starth,startm),new Timeframe.Time(endh,endm));
 	this.addAt(e, this.inSort(e));
 }
+
+
 	public void addAt(Event e,int pos) {
 		Event prev=head;
 		int count=1;
@@ -91,6 +93,7 @@ public void reschedule(Event e, int starth,int startm,int endh, int endm) {
 		prev.next=e;
 		length++;
 	}
+
 	public void insertFirst(Event e){
 		if (head == null) {
 			//if list is empty set head and tail to set node

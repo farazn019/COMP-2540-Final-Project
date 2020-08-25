@@ -1,13 +1,37 @@
 import java.util.*;
 
 
-public class Tester {
-	static scheduleWindow baseWindow;
+public class Tester{
+
+	static Week w;
+	static String[][] weeklyScheduleArray;
+	static String[] days;
+	static int choice;
+	static schedule gui = new schedule();
+
+
 	public static void main(String[] args) {
 		//scheduleWindow baseWindow;
-		Week w= new Week();
-		int choice;
+		w= new Week();
 		Scanner sc= new Scanner(System.in);
+		gui.closeOnExit();
+    	gui.setSize(1000, 1000);
+
+		weeklyScheduleArray = new String[25][7];
+		days = new String[7];
+
+		days[0] = "Sunday";
+		days[1] = "Monday";
+		days[2] = "Tuesday";
+		days[3] = "Wednesday";
+		days[4] = "Thursday";
+		days[5] = "Friday";
+		days[6] = "Saturday";
+
+		for(int i = 0; i < 7; i++){
+			weeklyScheduleArray[0][i] = days[i];
+		}
+
 			while (true) {
 	
 				System.out.print("Enter the day you wish to edit\n1) Sunday\n2) Monday\n3) Tuesday");
@@ -16,11 +40,7 @@ public class Tester {
 				if (choice>=1&&choice <=7) {
 					runOp(w.Week[choice-1]);
 				}else if (choice ==8) {
-					//display week
-					baseWindow = new scheduleWindow();
-					baseWindow.addWindow(900, 900);
-					baseWindow.setWindowName("Weekly Schedule");
-					baseWindow.addDay();
+					gui.setVisible(true);					
 				}else if (choice ==9) {
 					return;
 				}else {
@@ -52,6 +72,8 @@ public class Tester {
 		return getChoices;
 	}
 
+	static int startingHour, endingHour;
+
 	public static Event addEvent(){
 		String header;
 		String details;
@@ -68,15 +90,21 @@ public class Tester {
 		while(timeblock==null){
 			System.out.print("Give starting point in hour minute format >> ");
 			int[] startingTime = onlyGetGoodInputs(2);
+			startingHour = startingTime[0];
 			int[] endingTime = onlyGetGoodInputs(2);
+			endingHour = endingTime[1];
 			timeblock = new Timeframe(new Timeframe.Time(startingTime),new Timeframe.Time(endingTime));
 		}
 		return new Event(header,details,timeblock,priority);
 
 
+		
 
 
 	}
+
+
+
 	public static void runOp(Day day) {
 		System.out.println("What would you like to do\n1) add\n2) delete\n3)display\n4) Reschedule\n");
 		Scanner sc = new Scanner(System.in);
@@ -88,19 +116,18 @@ public class Tester {
 			case 1://Add an event
 				Event e= addEvent();
 				day.addAt(e, day.inSort(e));
-				//Adds the event at the second cloumn and uses the priority number to decide at what time the user will do the event. 
-				baseWindow.gui.addEvent(e.priority, 1, e.header);
-				
+				weeklyScheduleArray[e.startingHour][choice - 1] = e.header;
+				gui.addEvent(startingHour, choice, e.header);
+				//gui.setVisible(true);
 				break;
 			case 2://Delete an event
 				System.out.println("\nEnter name of event you want to delete");
 				String name=sc.nextLine();
 				day.delete(name);
 				break;
+
 			case 3://Display an element- GUI should cover this
-				scheduleWindow.addWindow(900, 900);
-				scheduleWindow.setWindowName("Weekly Schedule");
-				scheduleWindow.addDay();
+				gui.setVisible(true);
 				break;
 			case 4://Reschedule an event
 				System.out.println("Enter name of event you want to reschedule\n");

@@ -13,6 +13,8 @@ public class Event {
 	Event previous;
 	int priority;
 
+	//The starting hour and ending hour.
+	int startingHour, endingHour;
 
 
 	public Event() {
@@ -25,10 +27,12 @@ public class Event {
 		//this.details = details;
 		System.out.println("\n Enter Event start hour");
 		x=sc.nextInt();
+		this.startingHour = x;
 		System.out.println("\n Enter Event start minute");
 		y=sc.nextInt();
 		System.out.println("\n Enter Event end hour");
 		w=sc.nextInt();
+		this.endingHour = w;
 		System.out.println("\n Enter Event end minute");
 		z=sc.nextInt();
 		this.time =  new Timeframe(new Timeframe.Time(x,y),new Timeframe.Time(w,z));

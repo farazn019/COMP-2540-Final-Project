@@ -5,17 +5,19 @@ import javax.swing.*;
 
 public class schedule extends JFrame{
     JTable scheduleTable;
-    String columns[] = {"Time", "Event"};
-    Object[][] data = new Object[24][2];
+    String columns[] = {"Time", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+
+    Object[][] data = new Object[25][8];
 
     public schedule() {
 
         int currentHour = 24;
 
-        for(int i = 23; i >= 0; i--){
+        for(int i = 24; i >= 0; i--){
             data[i][0] = currentHour;
             currentHour -= 1;
         }
+
 
         scheduleTable = new JTable(data, columns);
         scheduleTable.setPreferredScrollableViewportSize(new Dimension(50, 50));
@@ -27,7 +29,7 @@ public class schedule extends JFrame{
     void addEvent(int row, int column, String event){
         boolean isValid = false;
         while(!isValid){
-            if(column > 2 || column <= 0 || row > 24 || row <= 0){
+            if(column > 8 || column <= 0 || row > 24 || row <= 0){
                 System.out.println("Invalid operation, please enter something valid!");
             }
             else{
@@ -37,12 +39,15 @@ public class schedule extends JFrame{
         }
     }
 
+    void closeOnExit(){
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     /*
     public static void main(String[] args){
         schedule gui = new schedule();
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gui.setSize(1000, 1000);
         gui.setVisible(true);
-
     }*/
 }
