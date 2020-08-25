@@ -2,8 +2,9 @@ import java.util.*;
 
 
 public class Tester {
+	static scheduleWindow baseWindow;
 	public static void main(String[] args) {
-		scheduleWindow baseWindow;
+		//scheduleWindow baseWindow;
 		Week w= new Week();
 		int choice;
 		Scanner sc= new Scanner(System.in);
@@ -13,7 +14,7 @@ public class Tester {
 				System.out.print("\n4) Wednesday\n 5)Thursday\n6) Friday\n 7) Saturday \n8)Display Entire week\n)exit");
 				choice=onlyGetGoodInput();
 				if (choice>=1&&choice <=7) {
-					runOp(w.Week[choice+1]);
+					runOp(w.Week[choice-1]);
 				}else if (choice ==8) {
 					//display week
 					baseWindow = new scheduleWindow();
@@ -87,6 +88,8 @@ public class Tester {
 			case 1://Add an event
 				Event e= addEvent();
 				day.addAt(e, day.inSort(e));
+				//Adds the event at the second cloumn and uses the priority number to decide at what time the user will do the event. 
+				baseWindow.gui.addEvent(e.priority, 1, e.header);
 				
 				break;
 			case 2://Delete an event

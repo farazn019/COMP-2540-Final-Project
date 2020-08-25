@@ -40,7 +40,7 @@ public class scheduleWindow extends JFrame{
         windowNameLabel.setVisible(true);
         defaultFrame.add(windowNameLabel);
     }
-    final static String []days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    final static String []days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     static void addDay(){
         JButton dayButton[] = new JButton[7];
         int current_x_position = 0;
