@@ -50,10 +50,12 @@ public class Day {
 		//we set the key at the element to be added
 		//Checks each event with the event that needs to be added
 		//Compares its time with the others and picks where to be added to
+		Event temp=head;
 		int i=1;
-		while(head!=null) {
+		while(temp!=null) {
 			if (e.time.compareTo(head.time)==1){
 				i++;
+				temp=temp.next;
 				continue;
 			}
 			else{
@@ -227,7 +229,7 @@ public void reschedule(Event e, int starth,int startm,int endh, int endm) {
 			String header = eventAs[0];
 			String details = eventAs[1];
 			String time = eventAs[2];
-			newDay.inSort(new Event(header,details,Timeframe.toTimeframe(time),10));
+			newDay.inSort(new Event(header,Timeframe.toTimeframe(time),10));
 		}
 		return newDay;
 	}
